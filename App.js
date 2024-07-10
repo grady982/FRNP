@@ -3,7 +3,8 @@ import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App() {
 
-  const [inputText, setInputText] = useState();
+  const [inputText, setInputText] = useState('');
+  const [goals, setGoals] = useState([]);
 
   inputHandler = (text) => {
     setInputText(text);
@@ -11,6 +12,10 @@ export default function App() {
 
   onAddBtnClick = () => {
     console.log('show:', inputText);
+    // setGoals([...goals, inputText]);
+
+    // recommended way to update state when it depends on the previous state
+    setGoals((currentGoals) => [...currentGoals, inputText]);
   }
 
   return (
@@ -20,7 +25,7 @@ export default function App() {
         <Button title='ADD' onPress={onAddBtnClick} />
       </View>
       <View style={styles.goalsContainer}>
-        <Text>List of goals...</Text>
+        { goals.map((goal, index) => <Text key={index}>{ goal }</Text>) }
       </View>
     </View>
   );
